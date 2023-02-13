@@ -12,4 +12,8 @@ public interface RelationRepository extends JpaRepository<RelationEntity, Long> 
             + "and (:#{#entity.firstWord} is null or r.firstWord = :#{#entity.firstWord}) "
             + "and (:#{#entity.secondWord} is null or r.secondWord = :#{#entity.secondWord})")
     List<RelationEntity> findAllWith(RelationEntity entity);
+
+    @Query("SELECT r FROM RelationEntity r WHERE (:firstWord = r.firstWord and :secondWord = r.secondWord) "
+            + "or (:firstWord = r.secondWord and :secondWord = r.firstWord)")
+    List<RelationEntity> findAllByTwoWord(String firstWord, String secondWord);
 }

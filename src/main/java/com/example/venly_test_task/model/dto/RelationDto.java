@@ -30,4 +30,20 @@ public final class RelationDto {
     public void setInversed() {
         this.inversed = true;
     }
+
+    public Type getType() {
+        return type;
+    }
+
+    public String getFirstWord() {
+        return firstWord;
+    }
+
+    public String getSecondWord() {
+        return secondWord;
+    }
+
+    public boolean isInversed() {
+        return inversed;
+    }
 }
