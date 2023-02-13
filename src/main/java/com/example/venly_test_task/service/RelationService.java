@@ -1,9 +1,13 @@
 package com.example.venly_test_task.service;
 
 import com.example.venly_test_task.model.RelationEntity;
+import com.example.venly_test_task.model.dto.RelationDto;
 import com.example.venly_test_task.repository.RelationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RelationService {
@@ -14,7 +18,13 @@ public class RelationService {
         this.repository = repository;
     }
 
-    public RelationEntity save(RelationEntity entity) {
-        return repository.save(entity);
+    public RelationDto save(RelationDto dto) {
+        return repository.save(dto.toEntity()).toDto();
+    }
+
+    public List<RelationDto> findAll() {
+        return repository.findAll().stream()
+                .map(RelationEntity::toDto)
+                .collect(Collectors.toList());
     }
 }
