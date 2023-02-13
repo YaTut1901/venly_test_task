@@ -1,7 +1,6 @@
 package com.example.venly_test_task.service;
 
 import com.example.venly_test_task.exception.ExistingPairException;
-import com.example.venly_test_task.model.RelationEntity;
 import com.example.venly_test_task.model.dto.RelationDto;
 import com.example.venly_test_task.repository.RelationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class RelationService {
     }
 
     public RelationDto save(RelationDto dto) {
-        if (!repository.findAllByTwoWord(dto.getFirstWord(), dto.getSecondWord()).isEmpty()) {
+        if (!repository.findIfPairExists(dto.getFirstWord(), dto.getSecondWord()).isEmpty()) {
             throw new ExistingPairException("Such pair already exists!");
         }
         return repository.save(dto.toEntity()).toDto();

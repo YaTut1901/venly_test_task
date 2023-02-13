@@ -15,5 +15,5 @@ public interface RelationRepository extends JpaRepository<RelationEntity, Long> 
 
     @Query("SELECT r FROM RelationEntity r WHERE (:firstWord = r.firstWord and :secondWord = r.secondWord) "
             + "or (:firstWord = r.secondWord and :secondWord = r.firstWord)")
-    List<RelationEntity> findAllByTwoWord(String firstWord, String secondWord);
+    List<RelationEntity> findIfPairExists(String firstWord, String secondWord);
 }
