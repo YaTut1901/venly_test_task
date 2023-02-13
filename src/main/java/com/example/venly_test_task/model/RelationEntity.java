@@ -16,8 +16,8 @@ public class RelationEntity {
 
     public RelationEntity(Type type, String firstWord, String secondWord) {
         this.type = type;
-        this.firstWord = firstWord;
-        this.secondWord = secondWord;
+        this.firstWord = firstWord.trim().toLowerCase();
+        this.secondWord = secondWord.trim().toLowerCase();
     }
 
     public RelationEntity() {
