@@ -10,12 +10,12 @@ public class RelationEntity {
     @GeneratedValue
     private Long id;
     @Enumerated(EnumType.ORDINAL)
-    private Type relation;
+    private Type type;
     private String firstWord;
     private String secondWord;
 
-    public RelationEntity(Type relation, String firstWord, String secondWord) {
-        this.relation = relation;
+    public RelationEntity(Type type, String firstWord, String secondWord) {
+        this.type = type;
         this.firstWord = firstWord;
         this.secondWord = secondWord;
     }
@@ -24,6 +24,18 @@ public class RelationEntity {
     }
 
     public RelationDto toDto() {
-        return new RelationDto(relation, firstWord, secondWord);
+        return new RelationDto(type, firstWord, secondWord);
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public String getFirstWord() {
+        return firstWord;
+    }
+
+    public String getSecondWord() {
+        return secondWord;
     }
 }

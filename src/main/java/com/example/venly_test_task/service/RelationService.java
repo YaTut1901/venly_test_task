@@ -22,8 +22,8 @@ public class RelationService {
         return repository.save(dto.toEntity()).toDto();
     }
 
-    public List<RelationDto> findAll() {
-        return repository.findAll().stream()
+    public List<RelationDto> findAll(RelationDto filter) {
+        return repository.findAllWith(filter.toEntity()).stream()
                 .map(RelationEntity::toDto)
                 .collect(Collectors.toList());
     }

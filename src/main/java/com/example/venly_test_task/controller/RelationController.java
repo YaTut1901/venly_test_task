@@ -24,7 +24,7 @@ public class RelationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RelationDto>> listRelation() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<RelationDto>> listRelation(RelationDto filter) {
+        return ResponseEntity.ok(service.findAll(filter));
     }
 }
