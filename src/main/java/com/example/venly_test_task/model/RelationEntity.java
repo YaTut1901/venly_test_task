@@ -27,6 +27,12 @@ public class RelationEntity {
         return new RelationDto(type, firstWord, secondWord);
     }
 
+    public RelationDto toInversedDto() {
+        RelationDto relationDto = new RelationDto(type, secondWord, firstWord);
+        relationDto.setInversed();
+        return relationDto;
+    }
+
     public Type getType() {
         return type;
     }

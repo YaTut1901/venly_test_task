@@ -24,7 +24,7 @@ public class RelationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RelationDto>> listRelation(RelationDto filter) {
-        return ResponseEntity.ok(service.findAll(filter));
+    public ResponseEntity<List<RelationDto>> listRelation(RelationDto filter, @RequestParam(required = false) boolean inverse) {
+        return ResponseEntity.ok(service.findAll(filter, inverse));
     }
 }
