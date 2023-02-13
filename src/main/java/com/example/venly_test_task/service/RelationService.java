@@ -21,7 +21,7 @@ public class RelationService {
     }
 
     public RelationDto save(RelationDto dto) {
-        if (repository.findAllByTwoWord(dto.getFirstWord(), dto.getSecondWord()).isEmpty()) {
+        if (!repository.findAllByTwoWord(dto.getFirstWord(), dto.getSecondWord()).isEmpty()) {
             throw new ExistingPairException("Such pair already exists!");
         }
         return repository.save(dto.toEntity()).toDto();
