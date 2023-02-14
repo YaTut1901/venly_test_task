@@ -60,7 +60,7 @@ public class RelationService {
 
         return new AsyncResult<>(target.map(entity -> List.of(entity.toDto()))
                 .orElseGet(() -> pairs.stream()
-                        .flatMap(p -> findPathRecursive(from, p.getFirstWord().equals(from) ? p.getSecondWord()
+                        .flatMap(p -> findPathRecursive(addNextElement(new ArrayList<>(), p), p.getFirstWord().equals(from) ? p.getSecondWord()
                                 : p.getFirstWord(), to, copyListAndAddNextElement(new ArrayList<>(), p), new ArrayList<>()).stream())
                         .min(Comparator.comparing(List::size))
                         .map(l -> l.stream()
@@ -70,7 +70,7 @@ public class RelationService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    List<List<RelationEntity>> findPathRecursive(String previous, String from, String to, List<RelationEntity> current, List<List<RelationEntity>> paths) {
+    List<List<RelationEntity>> findPathRecursive(List<RelationEntity> visited, String from, String to, List<RelationEntity> current, List<List<RelationEntity>> paths) {
         List<RelationEntity> pairs = repository.findPairsByWord(from);
 
         if (pairs.isEmpty()) {
@@ -88,8 +88,8 @@ public class RelationService {
         }
 
         return pairs.stream()
-                .filter(p -> !p.getFirstWord().equals(previous) && !p.getSecondWord().equals(previous))
-                .flatMap(p -> findPathRecursive(from, p.getFirstWord().equals(from) ? p.getSecondWord()
+                .filter(p -> !visited.contains(p))
+                .flatMap(p -> findPathRecursive(addNextElement(visited, p), p.getFirstWord().equals(from) ? p.getSecondWord()
                         : p.getFirstWord(), to, copyListAndAddNextElement(current, p), paths).stream())
                 .collect(Collectors.toList());
     }
@@ -99,5 +99,11 @@ public class RelationService {
         res.add(next);
 
         return res;
+    }
+
+    private List<RelationEntity> addNextElement(List<RelationEntity> list, RelationEntity next) {
+        list.add(next);
+
+        return list;
     }
 }
