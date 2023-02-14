@@ -89,7 +89,7 @@ public class RelationService {
 
         return pairs.stream()
                 .filter(p -> !visited.contains(p))
-                .flatMap(p -> findPathRecursive(addNextElement(visited, p), p.getFirstWord().equals(from) ? p.getSecondWord()
+                .flatMap(p -> findPathRecursive(copyListAndAddNextElement(visited, p), p.getFirstWord().equals(from) ? p.getSecondWord()
                         : p.getFirstWord(), to, copyListAndAddNextElement(current, p), paths).stream())
                 .collect(Collectors.toList());
     }
