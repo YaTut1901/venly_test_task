@@ -46,6 +46,7 @@ public class RelationService {
 
 
     @Async
+    @Transactional(propagation = Propagation.REQUIRED)
     public Future<List<RelationDto>> findPath(String from, String to) {
         List<RelationEntity> pairs = repository.findPairsByWord(from);
 
